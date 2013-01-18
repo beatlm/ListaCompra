@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="anadir">Añadir</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="title_activity_new_list">Nueva Lista</string>
+    
+</resources>

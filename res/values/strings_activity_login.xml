@@ -1,0 +1,15 @@
+<resources>
+
+    <string name="title_activity_login">Mis Listas</string>
+
+    <!-- Strings related to login -->
+    <string name="entrar">Entrar</string>
+    <string name="usuario">Usuario</string>
+    <string name="registrar">Registrar</string>
+    <string name="menu_forgot_password">Recuperar contraseña perdida</string>
+    <string name="login_progress_signing_in">Signing in&#8230;</string>
+    <string name="error_invalid_password">La contraseña debe contener al menos 4 caracteres</string>
+    <string name="error_incorrect_password">La contraseña es incorrecta</string>
+    <string name="error_field_required">Este campo es obligatorio</string>
+
+</resources>
