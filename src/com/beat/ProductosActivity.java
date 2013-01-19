@@ -64,7 +64,8 @@ public class ProductosActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onClick(View v) {
-		Intent intent = new Intent(this, NewList.class);
+		Intent intent = new Intent(this, NewProduct.class);
+		intent.putExtra("listName", list_name);
 		startActivity(intent);
 	}
 

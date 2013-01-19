@@ -193,4 +193,40 @@ public class DataAccess {
 
 	}
 
+	
+	public static boolean newProductStatus(String list_name,String product_name) {
+		URL_connect = "http://" + IP_Server + "/newproduct.php";
+		int regStatus = -1;
+
+		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+
+		postParameters.add(new BasicNameValuePair("listName", list_name));
+		postParameters.add(new BasicNameValuePair("productName", product_name));
+
+		JSONArray jData = post.getServerData(postParameters, URL_connect);
+
+		if (jData != null && jData.length() > 0) {
+			JSONObject jsonData;
+
+			try {
+				jsonData = jData.getJSONObject(0);
+				regStatus = jsonData.getInt("insert");
+			} catch (JSONException e) {
+				e.printStackTrace();
+
+			}
+
+			if (regStatus == 0) {
+				Log.e("insert", "invalido");
+				return false;
+			} else {
+				Log.e("insert", "valido");
+				return true;
+			}
+
+		} else {
+			return false;
+		}
+
+	}
 }
