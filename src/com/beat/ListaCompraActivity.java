@@ -79,61 +79,14 @@ public class ListaCompraActivity extends Activity implements OnClickListener,
 		Intent intent = new Intent(ListaCompraActivity.this,
 				ProductosActivity.class);
 		 
-		intent.putExtra("list_name", listas.elementAt(position).toString());
+		intent.putExtra("listName", listas.elementAt(position).toString());
 		startActivity(intent);
 	}
 
-	/**
-	 * Represents an asynchronous login/registration task used to authenticate
-	 * the user.
-	 */
-/*	public class UserLoginTask extends AsyncTask<String, String, String> {
-		private String list_name;
-
-		@Override
-		protected void onPreExecute() {
-			pDialog = new ProgressDialog(ListaCompraActivity.this);
-			pDialog.setMessage("Cargando Productos....");
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(false);
-			pDialog.show();
-		}
-
-		@Override
-		protected String doInBackground(String... params) {
-			list_name = params[0];
-			// pass = params[1];
-			System.out.println("doinbackground");
-			productos= DataAccess.getProducts(list_name);
-			if (productos.size() > 0) {
-				return "ok";
-			} else {
-				return "empty";
-			}
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			pDialog.dismiss();// ocultamos progess dialog.
-			System.out.println("onpost " + result);
-			if (result.equals("ok")) {
-
-				Intent intent = new Intent(ListaCompraActivity.this,
-						ProductosActivity.class);
-				intent.putExtra("productos", productos);
-				startActivity(intent);
-			} else {
-				Messages.mostrarDialogoAlerta(
-						"El usuario/contrase–a no son v‡lidos",
-						new OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-								dialog.cancel();
-							}
-						}, LoginActivity.this);
-			}
-		}
-
-	}*/
+	@Override
+	public void onBackPressed() {
+	 System.out.println("Pulsa back");
+ 
+	}
 
 }

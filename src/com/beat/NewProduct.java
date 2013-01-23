@@ -26,7 +26,7 @@ private String listName;
 		product_name=(EditText)findViewById(R.id.newProductName);
 		
 		  listName=	getIntent().getExtras().getString("listName");
-		
+		  System.out.println("NewProduct : recogemos nombre lista "+listName);
 	}
 
 
@@ -36,6 +36,7 @@ private String listName;
 		
 		if(result){
 			Intent intent = new Intent(this, ProductosActivity.class);
+			System.out.println("NewProduct : pasamos nombre lista "+listName);
 			intent.putExtra("listName",listName);
 			startActivity(intent);
 		}else{

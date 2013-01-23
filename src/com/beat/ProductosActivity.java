@@ -19,10 +19,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
-public class ProductosActivity extends Activity implements OnClickListener,
-		OnItemClickListener {
+public class ProductosActivity extends Activity implements OnClickListener {
 	private Button btn_newList;
+	private TextView titulo;
 	private String list_name;
 	private Vector productos;
 	private ProgressDialog pDialog;
@@ -33,32 +34,13 @@ public class ProductosActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.productos);
 
-		list_name = getIntent().getExtras().getString("list_name");
-		System.out.println("list_name llega " + list_name);
+		list_name = getIntent().getExtras().getString("listName");
+		System.out.println("listName llega " + list_name);
 		btn_newList = (Button) findViewById(R.id.btn_newList);
 		btn_newList.setOnClickListener(this);
-
-		// Cargamos las listas del usuario
-
-		/*
-		 * listas = DataAccess.getLists(usuario);
-		 * 
-		 * System.out.println("v lengt " + listas.size()); String[] data;
-		 * 
-		 * if (listas.size() > 0) { data = (String[]) listas.toArray(new
-		 * String[0]); } else {
-		 * 
-		 * data = new String[0]; }
-		 * 
-		 * ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this,
-		 * android.R.layout.simple_list_item_1, data);
-		 * 
-		 * ListView lstOpciones = (ListView) findViewById(R.id.listasV);
-		 * 
-		 * lstOpciones.setAdapter(adaptador);
-		 * lstOpciones.setOnItemClickListener(this);
-		 */
-
+		titulo=(TextView)findViewById(R.id.listName);
+		titulo.setText(list_name);
+		
 		new ProductsTask().execute(list_name);
 	}
 
@@ -70,12 +52,11 @@ public class ProductosActivity extends Activity implements OnClickListener,
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		System.out.println(position + "-" + id);
-
-		// System.out.println(listas.elementAt(position));
-
+	public void onBackPressed() {
+	 System.out.println("Pulsa back");
+	   Intent setIntent = new Intent(this,ListaCompraActivity.class);
+	   setIntent.putExtra("listName", list_name);
+	   startActivity(setIntent);
 	}
 
 	/**
@@ -125,18 +106,13 @@ public class ProductosActivity extends Activity implements OnClickListener,
 
 				lstOpciones.setAdapter(adaptador);
 			} else {
-				/*Messages.mostrarDialogoAlerta(
-						"El usuario/contrase–a no son v‡lidos",
-						new OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-								dialog.cancel();
-							}
-						}, LoginActivity.this);*/
+				
 				System.out.println("No hay productos que mostrar");
 			}
 		}
 
 	}
+
+
 
 }
