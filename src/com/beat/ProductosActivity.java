@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 public class ProductosActivity extends Activity implements OnClickListener {
 	private Button btn_newList;
+	private Button btn_searchUser;
 	private TextView titulo;
 	private String list_name;
 	private Vector productos;
@@ -38,25 +39,36 @@ public class ProductosActivity extends Activity implements OnClickListener {
 		System.out.println("listName llega " + list_name);
 		btn_newList = (Button) findViewById(R.id.btn_newList);
 		btn_newList.setOnClickListener(this);
-		titulo=(TextView)findViewById(R.id.listName);
+		titulo = (TextView) findViewById(R.id.listName);
 		titulo.setText(list_name);
-		
+		btn_searchUser = (Button) findViewById(R.id.btn_searchUser);
+		btn_searchUser.setOnClickListener(this);
+
 		new ProductsTask().execute(list_name);
 	}
 
 	@Override
 	public void onClick(View v) {
-		Intent intent = new Intent(this, NewProduct.class);
-		intent.putExtra("listName", list_name);
+
+		Intent intent = null;
+		switch (v.getId()) {
+		case R.id.btn_newList:
+			intent = new Intent(this, NewProduct.class);
+			intent.putExtra("listName", list_name);
+			break;
+		case R.id.btn_searchUser:
+			intent = new Intent(this, SearchUser.class);
+		}
 		startActivity(intent);
+
 	}
 
 	@Override
 	public void onBackPressed() {
-	 System.out.println("Pulsa back");
-	   Intent setIntent = new Intent(this,ListaCompraActivity.class);
-	   setIntent.putExtra("listName", list_name);
-	   startActivity(setIntent);
+		System.out.println("Pulsa back");
+		Intent setIntent = new Intent(this, ListaCompraActivity.class);
+		setIntent.putExtra("listName", list_name);
+		startActivity(setIntent);
 	}
 
 	/**
@@ -106,13 +118,11 @@ public class ProductosActivity extends Activity implements OnClickListener {
 
 				lstOpciones.setAdapter(adaptador);
 			} else {
-				
+
 				System.out.println("No hay productos que mostrar");
 			}
 		}
 
 	}
-
-
 
 }

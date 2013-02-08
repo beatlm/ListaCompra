@@ -8,4 +8,8 @@
       <string name="title_productos">Productos</string>
   <string name="btn_nuevo_producto">Nuevo Producto</string>
 <string name="title_activity_new_product">Producto nuevo</string>
+    <string name="btn_search">Buscar usuario</string>
+        <string name="btn_share">Compartir lista</string>
+         <string name="nombre">Nombre lista</string>
+           <string name="nombreProducto">Nombre producto:</string>
 </resources>

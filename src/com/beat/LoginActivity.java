@@ -61,11 +61,6 @@ public class LoginActivity extends Activity {
 
 		mPasswordView = (EditText) findViewById(R.id.password);
 
-		/*
-		 * mLoginFormView = findViewById(R.id.login_form); mLoginStatusView =
-		 * findViewById(R.id.login_status); mLoginStatusMessageView = (TextView)
-		 * findViewById(R.id.login_status_message);
-		 */
 		// Boton entrar
 		findViewById(R.id.sign_in_button).setOnClickListener(
 				new View.OnClickListener() {
@@ -85,11 +80,6 @@ public class LoginActivity extends Activity {
 				});
 	}
 
-	/*
-	 * @Override public boolean onCreateOptionsMenu(Menu menu) {
-	 * super.onCreateOptionsMenu(menu);
-	 * getMenuInflater().inflate(R.menu.activity_login, menu); return true; }
-	 */
 
 	public void register() {
 		Intent intent = new Intent(this, RegisterUser.class);

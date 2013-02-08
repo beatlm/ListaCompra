@@ -1,28 +1,32 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".NewList" >
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".NewProduct"
+     android:background="@color/azul_oscuro" >
 
-    <EditText
-        android:id="@+id/newProductName"
+      <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:text="@string/nombreProducto"
+        style="@style/Label"
+        />
+  <EditText
+        android:id="@+id/newProductName"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+ 
         android:layout_marginTop="58dp"
         android:ems="10" >
 
-        <requestFocus />
+  
     </EditText>
-
-    <Button
+<Button
         android:id="@+id/newProductBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="86dp"
+        style="@style/Button"
         android:text="@string/anadir" />
-
-</RelativeLayout>
+  
+</LinearLayout>

@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.beat.Lista;
+
 import android.annotation.SuppressLint;
 import android.util.Log;
 
@@ -126,6 +128,48 @@ public class DataAccess {
 		return result;
 	}
 	
+	public static ArrayList<Lista> getLists2(String user) {
+		URL_connect = "http://" + IP_Server + "/getLists.php";
+		ArrayList<Lista> result=new ArrayList<Lista>();
+		 
+
+		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+
+		postParameters.add(new BasicNameValuePair("user", user));
+
+		JSONArray jData = post.getServerData(postParameters, URL_connect);
+	 
+		if (jData != null && jData.length() > 0) {
+			JSONObject jsonData;
+
+			try {
+
+				for (int i = 0; i < jData.length(); i++) {
+					
+					jsonData = jData.getJSONObject(i);
+					
+					//Consulta para conocer el numero de productos
+					
+					URL_connect = "http://" + IP_Server + "/getNumProducts.php";
+					postParameters.clear();
+					postParameters.add(new BasicNameValuePair("id_list", jsonData.getString("id_list")));
+					JSONArray jDataNum = post.getServerData(postParameters, URL_connect);
+					JSONObject jsonDataNum= jDataNum.getJSONObject(0);
+
+					
+					
+					System.out.println(jsonData.getInt("id_list")+"-"+jsonData.getString("listName")+"-"+jsonDataNum.getInt("num")+"-"+jsonData.getInt("shared"));
+					Lista l= new Lista(jsonData.getInt("id_list"),jsonData.getString("listName"),jsonDataNum.getInt("num"),jsonData.getInt("shared")==1);
+					result.add(l);
+			 
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		} 
+		return result;
+	}
+	
 	public static Vector<String> getProducts(String list_name) {
 		URL_connect = "http://" + IP_Server + "/getProducts.php";
 		Vector<String> result=new Vector<String>();
@@ -229,4 +273,82 @@ public class DataAccess {
 		}
 
 	}
+	
+	
+	public static ArrayList<Vector> getUser(String user) {
+		URL_connect = "http://" + IP_Server + "/getUser.php";
+		ArrayList<Vector> result=new ArrayList<Vector>();
+		 
+
+		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+
+		postParameters.add(new BasicNameValuePair("user", user));
+
+		JSONArray jData = post.getServerData(postParameters, URL_connect);
+	 
+		if (jData != null && jData.length() > 0) {
+			JSONObject jsonData;
+
+			try {
+
+				for (int i = 0; i < jData.length(); i++) {
+					Vector<String> v=new Vector<String>();
+					jsonData = jData.getJSONObject(i);
+					v.add(jsonData.getString("username"));
+					v.add(jsonData.getString("id_user"));
+					result.add(v);
+					
+					//result.add( jsonData.getString("username"));
+			 
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+
+			}
+
+		} 
+		return result;
+	}
+	
+	
+	public static boolean compartir(String userId,String listId ) {
+		URL_connect = "http://" + IP_Server + "/share.php";
+		int logStatus = -1;
+
+		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+
+		postParameters.add(new BasicNameValuePair("userId", userId));
+		postParameters.add(new BasicNameValuePair("listId", listId));
+
+		Log.e("postParameters", postParameters.toString());
+		Log.e("url", URL_connect);
+
+		JSONArray jData = post.getServerData(postParameters, URL_connect);
+
+		if (jData != null && jData.length() > 0) {
+			JSONObject jsonData;
+
+			try {
+				jsonData = jData.getJSONObject(0);
+				logStatus = jsonData.getInt("share");
+			} catch (JSONException e) {
+				e.printStackTrace();
+
+			}
+
+			if (logStatus !=0) {
+				Log.e("share", "invalido");
+				return false;
+			} else {
+				Data.setUser_id( Integer.toString(logStatus));
+				Log.e("share", Integer.toString(logStatus));
+				return true;
+			}
+
+		} else {
+			return false;
+		}
+
+	}
+	
 }

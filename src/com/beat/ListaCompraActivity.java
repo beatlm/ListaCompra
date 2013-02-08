@@ -1,7 +1,9 @@
 package com.beat;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
+import com.beat.LoginActivity.UserLoginTask;
 import com.beat.library.Data;
 import com.beat.library.DataAccess;
 import com.beat.library.Messages;
@@ -23,10 +25,12 @@ import android.widget.ListView;
 public class ListaCompraActivity extends Activity implements OnClickListener,
 		OnItemClickListener {
 	private Button btn_newList;
-	private String usuario;
-	private Vector listas;
-	private Vector productos;
 	private ProgressDialog pDialog;
+	private String usuario;
+	//private Vector<String> listas;
+	private ArrayList<Lista> itemsCompra;
+
+
 
 	/** Called when the activity is first created. */
 	@Override
@@ -34,40 +38,28 @@ public class ListaCompraActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		usuario = Data.getUsuario();//getIntent().getExtras().getString("usuario");
-		// usuario=getIntent().getExtras().getString("id_lista");
-		System.out.println("usuario llega " + usuario);
+		usuario = Data.getUsuario();
 		btn_newList = (Button) findViewById(R.id.btn_newList);
 		btn_newList.setOnClickListener(this);
-
-		// Cargamos las listas del usuario
-
-		listas = DataAccess.getLists(usuario);
-
-		System.out.println("v lengt " + listas.size());
-		String[] data;
-
-		if (listas.size() > 0) {
-			data = (String[]) listas.toArray(new String[0]);
-		} else {
-
-			data = new String[0];
-		}
-
-		ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, data);
-
-		ListView lstOpciones = (ListView) findViewById(R.id.listasV);
-
-		lstOpciones.setAdapter(adaptador);
-		lstOpciones.setOnItemClickListener(this);
+		new GetListsTask().execute();
 
 	}
+	
+	
 
 	@Override
 	public void onClick(View v) {
-		Intent intent = new Intent(this, NewList.class);
-		startActivity(intent);
+		 Intent intent = null;
+		 switch(v.getId()){		
+         case R.id.btn_newList:
+        	  intent = new Intent(this, NewList.class);    		
+        	 break;
+         case R.id.btn_searchUser:
+        	 intent = new Intent(this, SearchUser.class);    	
+     }   
+		 startActivity(intent);
+		
+		
 	}
 
 	@Override
@@ -75,11 +67,16 @@ public class ListaCompraActivity extends Activity implements OnClickListener,
 			long id) {
 		System.out.println(position + "-" + id);
 
-		System.out.println(listas.elementAt(position));
+		System.out.println(itemsCompra.get(position).getNombre());
+		
+		//Guardamos el id de la lista
+		
+		Data.setList_id(String.valueOf(itemsCompra.get(position).getId()));
+		System.out.println("ALMACENAMOS ID LISTA "+itemsCompra.get(position).getId());
 		Intent intent = new Intent(ListaCompraActivity.this,
 				ProductosActivity.class);
 		 
-		intent.putExtra("listName", listas.elementAt(position).toString());
+		intent.putExtra("listName", itemsCompra.get(position).getNombre());
 		startActivity(intent);
 	}
 
@@ -87,6 +84,44 @@ public class ListaCompraActivity extends Activity implements OnClickListener,
 	public void onBackPressed() {
 	 System.out.println("Pulsa back");
  
+	}
+	
+	public class GetListsTask extends AsyncTask<String, String, String> {
+	//	private String user, pass;
+
+		@Override
+		protected void onPreExecute() {
+			pDialog = new ProgressDialog(ListaCompraActivity.this);
+			pDialog.setMessage("Obteniendo datos....");
+			pDialog.setIndeterminate(false);
+			pDialog.setCancelable(false);
+			pDialog.show();
+		}
+
+		@Override
+		protected String doInBackground(String... params) {
+			//user = params[0];
+			//pass = params[1];
+			System.out.println("doinbackground");
+			/*if (DataAccess.loginStatus(user, pass) == true) {
+				return "ok";
+			} else {
+				return "err";
+			}*/
+			  itemsCompra = DataAccess.getLists2(usuario);
+			return "ok";
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			pDialog.dismiss();// ocultamos progess dialog.
+			System.out.println("onpost " + result);
+			ListaAdapter adaptador=new ListaAdapter(ListaCompraActivity.this,itemsCompra);
+			ListView lstOpciones = (ListView) findViewById(R.id.listasV);
+			lstOpciones.setAdapter(adaptador);
+			lstOpciones.setOnItemClickListener(ListaCompraActivity.this);
+		}
+
 	}
 
 }

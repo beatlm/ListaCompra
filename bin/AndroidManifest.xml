@@ -38,6 +38,10 @@
             android:label="@string/title_activity_register_user" >
         </activity>
           <activity
+            android:name="com.beat.SearchUser"
+            android:label="@string/title_activity_register_user" >
+        </activity>
+          <activity
             android:name="com.beat.ProductosActivity"
             android:label="@string/title_productos" >
         </activity>

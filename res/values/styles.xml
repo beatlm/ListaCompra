@@ -1,9 +1,44 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="LoginFormContainer">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="Label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/blanco</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:background">@drawable/button</item>
+        <item name="android:textColor">@color/blanco</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_width">212dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+               <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_gravity">center</item>
+      
+    </style><style name="Title">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/blanco</item>
+        <item name="android:background">@color/azul_oscuro</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="List">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:maxHeight">340dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/negro</item>
+        <item name="android:background">@drawable/list</item>
+        <item name="android:textSize">10sp</item>
     </style>
 
 </resources>

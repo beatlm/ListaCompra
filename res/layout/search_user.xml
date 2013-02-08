@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SearchUser" 
+     android:background="@color/azul_oscuro">
+<TextView
+        android:id="@+id/textView1"
+        android:text="@string/usuario"
+        style="@style/Label" />
+
+
+    <EditText
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:inputType="textPersonName">
+ 
+    </EditText>
+
+    <Button
+        android:id="@+id/searchUserBtn"
+    style="@style/Button"
+        android:text="@string/btn_search" />
+<ListView
+    android:id="@+id/listUsers"
+    android:layout_width="match_parent"
+    android:layout_height="300dip" >
+</ListView>
+</LinearLayout>
